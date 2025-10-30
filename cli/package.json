@@ -1,6 +1,6 @@
 {
   "name": "raspberry-cli",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "CLI tool for managing and building Raspberry framework projects.",
   "type": "commonjs",
   "bin": {
