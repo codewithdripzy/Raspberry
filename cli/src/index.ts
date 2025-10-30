@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import chalk from "chalk";
 import { Command } from "commander";
 import { createProject } from "./commands/create";
 import { buildProject } from "./commands/build";

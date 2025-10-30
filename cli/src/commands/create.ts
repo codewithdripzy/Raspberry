@@ -48,7 +48,7 @@ export async function createProject(appName: string) {
             type: "list",
             name: "packageManager",
             message: "What package manager would you like to use?",
-            choices: ["npm", "yarn", "pnpm"],
+            choices: ["npm", "pnpm", "yarn"],
             default: "npm",
         },
     ]);
@@ -99,9 +99,12 @@ export async function createProject(appName: string) {
                             }
                             resolve();
                         });
-                        child.stdout?.pipe(process.stdout);
+                        // child.stdout?.pipe(process.stdout);
                         child.stderr?.pipe(process.stderr);
                     });
+
+                    console.log("\n");
+                    spinner.succeed(chalk.green(`Packages installed successfully! Can't wait to see what you build! 🚀\n`));
 
                     if (autoRunDev) {
                         spinner.text = `Starting development server using ${packageManager}...`;
@@ -114,14 +117,14 @@ export async function createProject(appName: string) {
                                 console.error(`Error starting dev server: ${error.message}`);
                                 return;
                             }
+
+                            console.log(chalk.green(`Development server started successfully!`));
                         });
 
-                        child.stdout?.pipe(process.stdout);
+                        // child.stdout?.pipe(process.stdout);
                         child.stderr?.pipe(process.stderr);
                         return; // exit the function to keep the dev server running
                     }
-
-                    spinner.succeed(`Packages installed successfully using ${packageManager}, Can't wait to see what you build! 🚀`);
                 }
                 
                 break;

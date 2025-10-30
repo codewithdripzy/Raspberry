@@ -1,33 +1,65 @@
-function typescriptTemplate(appName: string) {
-  // console.log('🍓 Welcome to Raspberry!');
-  const template = [
+interface TemplateItem {
+  path: string;
+  type: "file" | "dir";
+  content?: string;
+}
+
+function typescriptTemplate(appName: string): TemplateItem[] {
+  const template: TemplateItem[] = [
     { path: "assets", type: "dir" },
     { path: "test", type: "dir" },
     { path: "src", type: "dir" },
+
+    // Main entry file
     {
       path: "src/main.ts",
       type: "file",
-      content: ``,
+      content: `import { App, Component, Text } from "raspberry";
+
+const home = new App({
+  root: Component({
+    child: Text("🍓 Hello from ${appName}!"),
+  }),
+});
+`,
     },
+
+    // Raspberry project config
     {
       path: "raspberry.json",
       type: "file",
-      content: `{
-  "name": "${appName}",
-  "description": "A Raspberry project",
-  "version": "1.0.0"
-}
-`,
+      content: JSON.stringify(
+        {
+          name: appName,
+          description: "A Raspberry project",
+          version: "1.0.0",
+        },
+        null,
+        2
+      ),
     },
+
+    // Git ignore file
     {
       path: ".gitignore",
       type: "file",
-      content: `node_modules
+      content: `# Dependencies
+node_modules
+
+# Build output
 lib
 dist
+
+# Env and system files
 .env
+.DS_Store
+
+# Logs
+*.log
 `,
     },
+
+    // App-specific TS config
     {
       path: "tsconfig.app.json",
       type: "file",
@@ -35,17 +67,20 @@ dist
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "outDir": "lib",
     "rootDir": "src",
-    "moduleResolution": "Node",
+    "outDir": "lib",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src"]
 }
 `,
     },
+
+    // Node-specific TS config (for CLI/build tools)
     {
       path: "tsconfig.node.json",
       type: "file",
@@ -56,17 +91,24 @@ dist
     "outDir": "lib",
     "rootDir": "src",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "skipLibCheck": true
   },
   "include": ["src"]
 }
 `,
     },
+
+    // Root TS config
     {
       path: "tsconfig.json",
       type: "file",
       content: `{
-  "extends": "./tsconfig.app.json",
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
   "compilerOptions": {
     "composite": true,
     "declaration": true
@@ -75,71 +117,67 @@ dist
 }
 `,
     },
+
+    // Package.json
     {
       path: "package.json",
       type: "file",
-      content: `{
-  "name": "${appName}",
-  "version": "1.0.0",
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "raspberry build",
-    "start": "raspberry start",
-    "dev": "raspberry dev"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "typescript": "^5.0.0",
-    "ts-node": "^10.0.0"
-  }
-}
-`,
+      content: JSON.stringify(
+        {
+          name: appName,
+          version: "1.0.0",
+          description: "A Raspberry project",
+          main: "lib/main.js",
+          type: "module",
+          scripts: {
+            build: "raspberry build",
+            start: "raspberry start",
+            dev: "raspberry dev",
+          },
+          dependencies: {
+            raspberry: "latest",
+          },
+          devDependencies: {
+            typescript: "^5.6.0",
+            "ts-node": "^10.9.2",
+          },
+        },
+        null,
+        2
+      ),
     },
+
+    // README
     {
       path: "README.md",
       type: "file",
       content: `# ${appName}
 
-Welcome to **${appName}**, a project built with Raspberry!
+Welcome to **${appName}**, built with the 🍓 **Raspberry Framework**!
 
-## Description
+## 🚀 Getting Started
 
-${appName} is a Raspberry project designed to help you get started quickly with TypeScript and modern development tools.
+### 1️⃣ Install Dependencies
+\`\`\`bash
+npm install
+\`\`\`
 
-## Features
+### 2️⃣ Start Development
+\`\`\`bash
+npm run dev
+\`\`\`
 
-- TypeScript support
-- Pre-configured build scripts
-- Development and production modes
+### 3️⃣ Build for Production
+\`\`\`bash
+npm run build
+\`\`\`
 
-## Getting Started
+## 🧠 Project Overview
+This project uses **Raspberry**, a modern, open-source UI framework with Flutter-like syntax and React-level flexibility.
 
-### Installation
+---
 
-1. Install Raspberry CLI:
-   \`\`\`bash
-   npm i -g raspberry-cli
-   \`\`\`
-
-2. Create a new Raspberry project:
-   \`\`\`bash
-   raspberry create ${appName}
-   \`\`\`
-
-3. Install dependencies:
-   \`\`\`bash
-   npm install
-   \`\`\`
-
-### Scripts
-
-- \`npm run build\`: Build the project.
-- \`npm run start\`: Start the project.
-- \`npm run dev\`: Start the project in development mode.
-
-## License
-
-This project is licensed under the MIT License.
+**Made with ❤️ by the Raspberry community**
 `,
     },
   ];
