@@ -1,0 +1,43 @@
+{
+  "name": "raspberry-cli",
+  "version": "1.0.0",
+  "description": "CLI for Raspberry library management",
+  "type": "commonjs",
+  "bin": {
+    "raspberry": "./dist/index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "keywords": [
+    "raspberry",
+    "cli",
+    "framework",
+    "flutter",
+    "flutter-like-framework",
+    "react",
+    "svelte",
+    "vue",
+    "angular",
+    "preact",
+    "web"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.1",
+    "fs-extra": "^11.3.2",
+    "inquirer": "^12.10.0",
+    "ora": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.9",
+    "@types/node": "^24.9.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

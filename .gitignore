@@ -1,0 +1,45 @@
+# Xcode / Swift
+.DS_Store
+build/
+DerivedData/
+*.xcworkspace
+!default.xcworkspace
+*.xcuserstate
+*.xcuserdatad
+*.xcscmblueprint
+*.xccheckout
+xcuserdata/
+*.moved-aside
+*.xcarchive
+*.ipa
+*.dSYM
+*.app
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Swift Package Manager
+.build/
+Packages/
+.swiftpm
+Package.resolved
+
+# IDEs
+.idea/
+.vscode/
+
+# Temporary / editor
+*.swp
+*~
+*.lock
+*.log
+
+# Environment
+.env
+.env.* 
+
+pnpm-lock.yaml

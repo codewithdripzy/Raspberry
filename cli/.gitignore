@@ -1,0 +1,135 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime / Temp
+tmp/
+temp/
+.cache/
+*.pid
+*.seed
+*.swp
+
+# Environment
+.env
+.env.*.local
+.env.local
+.env.test
+.env.production
+local.env
+*.pem
+*.key
+
+# Node
+node_modules/
+# Optional npm cache folder
+.npm
+# build output
+dist/
+lib/
+build/
+out/
+.eslintcache
+.nyc_output/
+coverage/
+coverage-final.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Package managers (do NOT ignore lockfiles by default)
+.pnp/
+.pnp.js
+
+# Python (if present in CLI)
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+venv/
+env/
+.venv/
+pip-wheel-metadata/
+share/python-wheels/
+.mypy_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+.tox/
+.pyre/
+
+# Go
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Rust
+target/
+
+# C/C++ / builds
+*.o
+*.obj
+*.so
+*.a
+*.out
+*.elf
+
+# Archives / images / packages
+*.zip
+*.tar.gz
+*.tgz
+*.gz
+*.img
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+*.iml
+
+# JetBrains Rider / IntelliJ caches
+.cache/
+*.log
+
+# Git
+*.orig
+.rebase-apply/
+.rebase-apply-*
+.git-credentials
+.gitconfig.local
+
+# Secrets
+secrets.yml
+*.pem
+*.p12
+
+# Misc
+coverage/
+build-info/
+npm-debug.log*
+yarn.lock.debug
+
+# Raspberry Pi / Embedded artifacts
+*.dtb
+*.dtbo
+*.img
+*.bin
+
+# Allow tracking of project-specific lockfiles and config (uncomment to ignore)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
