@@ -109,6 +109,8 @@ export async function createProject(appName: string) {
                     if (autoRunDev) {
                         spinner.text = `Starting development server using ${packageManager}...`;
 
+                        // cd into the project directory
+                        process.chdir(targetDir);
                         let devCommand = `${packageManager} ${packageManager === "yarn" ? "dev" : "run dev"}`;
 
                         const { exec } = await import("child_process");
