@@ -1,4 +1,3 @@
-markdown
 # 🍓 Raspberry CLI  
 > The official CLI for managing and building **Raspberry** framework projects.  
 > *Simple. Fast. Developer-first.*
