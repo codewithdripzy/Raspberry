@@ -104,7 +104,7 @@ export async function createProject(appName: string) {
                     });
 
                     console.log("\n");
-                    spinner.succeed(chalk.green(`Packages installed successfully! Can't wait to see what you build! 🚀\n`));
+                    spinner.succeed(chalk.green(`Packages installed successfully! Time to build! 🚀\n`));
 
                     if (autoRunDev) {
                         spinner.text = `Starting development server using ${packageManager}...`;
