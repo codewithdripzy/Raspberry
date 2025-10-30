@@ -140,9 +140,3 @@ See the [LICENSE](./LICENSE) file for more information.
 ---
 
 <p align="center">Built with ❤️ by the Raspberry community.</p>
-```
-
----
-
-Would you like me to generate a **matching folder structure** and `package.json` setup (with `core`, `cli`, `devtools`, etc. already scaffolded for pnpm + turborepo)?
-That way, your repo will be instantly ready to initialize and push to GitHub.
