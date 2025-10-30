@@ -1,7 +1,7 @@
 {
   "name": "raspberry-cli",
   "version": "1.0.0",
-  "description": "CLI for Raspberry library management",
+  "description": "CLI tool for managing and building Raspberry framework projects.",
   "type": "commonjs",
   "bin": {
     "raspberry": "./dist/index.js"
