@@ -132,4 +132,5 @@ yarn.lock.debug
 # Allow tracking of project-specific lockfiles and config (uncomment to ignore)
 # package-lock.json
 # yarn.lock
-# pnpm-lock.yaml
+pnpm-lock.yaml
+.DS_Store
