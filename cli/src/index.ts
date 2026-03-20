@@ -15,6 +15,7 @@ program.command("create <app-name>").description("Create a new Raspberry project
 program.command("build").description("Build your Raspberry project for production").action(buildProject);
 
 // SERVE
-program.command("serve").description("Run your Raspberry app locally").action(serveProject);
+program.command("serve").alias("dev").description("Run your Raspberry app locally").action(serveProject);
+
 
 program.parse(process.argv);

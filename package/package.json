@@ -1,0 +1,30 @@
+{
+  "name": "raspberry",
+  "version": "0.1.0",
+  "description": "Flutter-like framework for Web in TypeScript",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsup src/widgets.ts --format cjs,esm --dts --clean",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.2",
+    "vite": "^6.2.0",
+    "typescript": "^5.9.3"
+  }
+}
+
+

@@ -6,199 +6,149 @@ interface TemplateItem {
 
 function typescriptTemplate(appName: string): TemplateItem[] {
   const template: TemplateItem[] = [
-    { path: "assets", type: "dir" },
-    { path: "test", type: "dir" },
     { path: "src", type: "dir" },
+    { path: "public", type: "dir" },
 
     // Main entry file
     {
       path: "src/main.ts",
       type: "file",
-      content: `import { App, Component, Text } from "raspberry";
+      content: `import { 
+  Scaffold, 
+  Center, 
+  Container, 
+  Column, 
+  Text, 
+  runApp, 
+  StatelessWidget 
+} from "raspberry";
 
-const home = new App({
-  root: Component({
-    child: Text("🍓 Hello from ${appName}!"),
-  }),
-});
+class MyApp extends StatelessWidget {
+  build() {
+    return Scaffold({
+      backgroundColor: "#f8fafc",
+      body: Center({
+        child: Container({
+          padding: "40px",
+          backgroundColor: "white",
+          borderRadius: "16px",
+          boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+          child: Column({
+            gap: "16px",
+            crossAxisAlignment: "center",
+            children: [
+              Text({ 
+                text: "🍓 Hello from ${appName}!", 
+                fontSize: "28px", 
+                fontWeight: "bold" 
+              }),
+              Text({ 
+                text: "Built with the Raspberry Framework",
+                color: "#64748b" 
+              }),
+              Container({
+                padding: "12px 24px",
+                backgroundColor: "#38BDF8",
+                borderRadius: "8px",
+                child: Text({ text: "Get Started", color: "white", fontWeight: "600" })
+              })
+            ]
+          })
+        })
+      })
+    });
+  }
+}
+
+const appRoot = document.getElementById("app");
+if (appRoot) {
+  runApp(new MyApp(), appRoot);
+}
 `,
     },
 
-    // Raspberry project config
+    // index.html
     {
-      path: "raspberry.json",
+      path: "index.html",
       type: "file",
-      content: JSON.stringify(
-        {
-          name: appName,
-          description: "A Raspberry project",
-          version: "1.0.0",
-        },
-        null,
-        2
-      ),
+      content: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${appName}</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
+`,
     },
 
-    // Git ignore file
+    // .gitignore
     {
       path: ".gitignore",
       type: "file",
-      content: `# Dependencies
-node_modules
-
-# Build output
-lib
+      content: `node_modules
 dist
-
-# Env and system files
-.env
 .DS_Store
-
-# Logs
 *.log
 `,
     },
 
-    // App-specific TS config
+    // tsconfig.json
     {
-      path: "tsconfig.app.json",
+      path: "tsconfig.json",
       type: "file",
       content: `{
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2022",
+    "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "noEmit": true,
-
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": false,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"]
 }
 `,
     },
 
-    // Node-specific TS config (for CLI/build tools)
-    {
-      path: "tsconfig.node.json",
-      type: "file",
-      content: `{
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "ES2023",
-    "lib": ["ES2023"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": false,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["vite.config.ts", "rasberry.config.ts"]
-}
-`,
-    },
-
-    // Root TS config
-    {
-      path: "tsconfig.json",
-      type: "file",
-      content: `{
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
-}
-`,
-    },
-
-    // Package.json
+    // package.json
     {
       path: "package.json",
       type: "file",
       content: JSON.stringify(
         {
           name: appName,
-          version: "1.0.0",
-          description: "A Raspberry project",
-          main: "lib/main.js",
+          private: true,
+          version: "0.1.0",
           type: "module",
           scripts: {
-            build: "raspberry build",
-            start: "raspberry start",
-            dev: "raspberry dev",
+            "dev": "raspberry serve",
+            "build": "raspberry build",
+            "preview": "vite preview"
           },
           dependencies: {
-            raspberry: "latest",
+            "raspberry": "latest"
           },
           devDependencies: {
-            typescript: "^5.6.0",
-            "ts-node": "^10.9.2",
-          },
+            "typescript": "^5.0.0",
+            "vite": "^6.0.0"
+          }
         },
         null,
         2
       ),
-    },
-
-    // README
-    {
-      path: "README.md",
-      type: "file",
-      content: `# ${appName}
-
-Welcome to **${appName}**, built with the 🍓 **Raspberry Framework**!
-
-## 🚀 Getting Started
-
-### 1️⃣ Install Dependencies
-\`\`\`bash
-npm install
-\`\`\`
-
-### 2️⃣ Start Development
-\`\`\`bash
-npm run dev
-\`\`\`
-
-### 3️⃣ Build for Production
-\`\`\`bash
-npm run build
-\`\`\`
-
-## 🧠 Project Overview
-This project uses **Raspberry**, a modern, open-source UI framework with Flutter-like syntax and React-level flexibility.
-
----
-
-**Made with ❤️ by the Raspberry community**
-`,
     },
   ];
 

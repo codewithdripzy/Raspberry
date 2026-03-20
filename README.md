@@ -31,15 +31,23 @@
 **Raspberry** is a next-generation UI framework designed to bring **Flutter’s expressive syntax** to the **web**.  
 It provides a **declarative component model**, **reactive rendering**, and a **lightweight runtime** that makes building apps fast, fun, and maintainable.
 
-```dart
-// Example: Flutter-like syntax in Raspberry
-Component(
-  child: Column([
-    Text("Hello Raspberry 🍓"),
-    Button("Click me", onClick: () => print("Pressed")),
-  ]),
-)
-````
+```typescript
+// Example: Raspberry widget-based syntax
+import { Scaffold, Center, Text, runApp } from "raspberry";
+
+const myApp = Scaffold({
+  body: Center({
+    child: Text({ 
+      text: "Hello Raspberry 🍓", 
+      fontSize: "24px", 
+      fontWeight: "bold" 
+    }),
+  }),
+});
+
+runApp(myApp, document.getElementById("app")!);
+```
+
 
 ---
 
