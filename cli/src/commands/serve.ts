@@ -1,15 +1,22 @@
-import http from "http";
 import chalk from "chalk";
+import { spawn } from "child_process";
 
 export async function serveProject() {
-  const port = 3000;
+  console.log(chalk.blue(`🍓 Launching Raspberry development server...`));
 
-  const server = http.createServer((req, res) => {
-    res.end("🍓 Raspberry app running!");
+  const devServer = spawn("npm", ["run", "dev"], {
+    stdio: "inherit",
+    shell: true
   });
 
-  server.listen(port, () => {
-    console.log(chalk.blue(`Your Raspberry app is live 🚀 `));
-    console.log(chalk.green(`Server running at http://localhost:${port}`));
+  devServer.on("error", (err: Error) => {
+    console.error(chalk.red(`Failed to start development server: ${err.message}`));
+  });
+
+  devServer.on("close", (code: number) => {
+    if (code !== 0) {
+      console.log(chalk.red(`Dev server exited with code ${code}`));
+    }
   });
 }
+

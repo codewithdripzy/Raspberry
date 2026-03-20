@@ -1,17 +1,16 @@
-import chalk from "chalk";
 import ora from "ora";
-import fs from "fs-extra";
+import chalk from "chalk";
+import { execSync } from "child_process";
 
 export async function buildProject() {
-  const spinner = ora("Building project...").start();
+  const spinner = ora("Building your Raspberry project for production...").start();
 
   try {
-    await new Promise((r) => setTimeout(r, 2000)); // Simulate build
-    await fs.mkdirp("dist");
-    await fs.writeFile("dist/app.js", "console.log('Raspberry app built!');");
-    spinner.succeed(chalk.green("Build complete! 🍓"));
+    // Run the native vite build through the project's scripts
+    execSync("npm run build", { stdio: "ignore" });
+    spinner.succeed(chalk.green("Build complete! 🍓 Your project is ready in /dist"));
   } catch (err) {
-    spinner.fail("Build failed");
+    spinner.fail(chalk.red("Build failed."));
     console.error(err);
   }
 }
